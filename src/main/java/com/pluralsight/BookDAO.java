@@ -71,7 +71,18 @@ public class BookDAO {
   		}
         return listBook;
     }
+    public void deleteBook(int id){
+        String sql = "DELETE FROM book WHERE id = ?";
 
+        try {
+            PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+            statement.setInt(1,id);
+            statement.executeUpdate();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public boolean insertBook(Book book)  {
         String sql = "INSERT INTO book (title, author, price) VALUES (?, ?, ?)";
 
