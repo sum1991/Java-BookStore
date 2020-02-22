@@ -44,6 +44,23 @@ public class BookDAO {
       return book;
     }
 
+    public void updateBook(Book book) {
+
+        String sql = "UPDATE book SET title = ?, author = ?, price = ? WHERE id = ?";
+
+        try {
+            PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+            statement.setString(1,book.getTitle());
+            statement.setString(2,book.getAuthor());
+            statement.setFloat(3,book.getPrice());
+            statement.setInt(4,book.id);
+            statement.executeUpdate();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public ArrayList<Book> listAllBooks() {
       ArrayList<Book> listBook = new ArrayList<>();
 
